@@ -1,7 +1,6 @@
 #Programmer: Daniel Rojo
-#Email: dcano9@cnm.edu
 #Purpose: To create a simple digital clock with a gui
-#python version: 3.12.7
+#python version: 3.14
 
 from tkinter import *
 from datetime import datetime
@@ -13,22 +12,21 @@ root.title('Digital Clock')
 root.geometry('500x250')
 
 #sets the current timezone for use
-current_timezone = ZoneInfo('US/Eastern')
+root.current_timezone = ZoneInfo('US/Eastern') #using root allows us to save the timezone from set_timezone
 
 #function that sets the time
 def time():
     """Sets the time and updates it every second"""
-    now = datetime.now(current_timezone)
+    now = datetime.now(root.current_timezone)
     display_time = now.strftime('%I:%M:%S %p') #gives us a string of the time to display
     #making the label in this function will continuously print the time
     label.config(text = display_time)
     label.after(1000, time) #updates the time every second
 
-#function to set the timezon
+#function to set the timezone
 def set_timezone(zone):
     """Sets current_timezone with a new timezone"""
-    global current_timezone #I read that global is bad practice but I couldn't find a way to do this without it
-    current_timezone = ZoneInfo(zone)
+    root.current_timezone = ZoneInfo(zone)
 
 #function to make the buttons and change the timezone
 def timezone():
